@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pomodoro Timer</title>
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: #1a1a2e;
+      color: #ffffff;
+      font-family: 'Segoe UI', Arial, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      padding: 1rem;
+    }
+
+    h1 {
+      font-size: 1.8rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: #e0e0e0;
+      font-weight: 300;
+    }
+
+    #timer-display {
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 6rem;
+      font-weight: 700;
+      color: #e94560;
+      letter-spacing: 0.05em;
+      line-height: 1;
+      text-shadow: 0 0 30px rgba(233, 69, 96, 0.4);
+    }
+
+    .controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      align-items: center;
+    }
+
+    button {
+      padding: 0.75rem 2rem;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      transition: transform 0.1s ease, opacity 0.2s ease, box-shadow 0.2s ease;
+    }
+
+    button:active {
+      transform: scale(0.96);
+    }
+
+    #btn-start {
+      background-color: #2ecc71;
+      color: #ffffff;
+      box-shadow: 0 4px 15px rgba(46, 204, 113, 0.35);
+    }
+
+    #btn-start:hover {
+      opacity: 0.88;
+      box-shadow: 0 6px 20px rgba(46, 204, 113, 0.55);
+    }
+
+    #btn-pause {
+      background-color: #f39c12;
+      color: #ffffff;
+      box-shadow: 0 4px 15px rgba(243, 156, 18, 0.35);
+    }
+
+    #btn-pause:hover {
+      opacity: 0.88;
+      box-shadow: 0 6px 20px rgba(243, 156, 18, 0.55);
+    }
+
+    #btn-reset {
+      background-color: #4a6fa5;
+      color: #ffffff;
+      box-shadow: 0 4px 15px rgba(74, 111, 165, 0.35);
+    }
+
+    #btn-reset:hover {
+      opacity: 0.88;
+      box-shadow: 0 6px 20px rgba(74, 111, 165, 0.55);
+    }
+
+    .session-info {
+      font-size: 0.95rem;
+      color: #a0a0b8;
+      letter-spacing: 0.05em;
+    }
+
+    .session-info span {
+      font-weight: 700;
+      color: #e94560;
+    }
+
+    @media (max-width: 480px) {
+      #timer-display {
+        font-size: 4.5rem;
+      }
+
+      h1 {
+        font-size: 1.4rem;
+      }
+
+      button {
+        padding: 0.65rem 1.5rem;
+        font-size: 0.9rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Pomodoro Timer</h1>
+
+  <div id="timer-display">25:00</div>
+
+  <div class="controls">
+    <button id="btn-start">Start</button>
+    <button id="btn-pause">Pause</button>
+    <button id="btn-reset">Reset</button>
+  </div>
+
+  <p class="session-info">Sessions: <span id="session-count">0</span></p>
+
+  <script src="script.js"></script>
+</body>
+</html>
