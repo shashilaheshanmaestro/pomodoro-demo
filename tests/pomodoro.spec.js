@@ -1,10 +1,19 @@
 const { test, expect } = require('@playwright/test');
+const path = require('path');
+const fs = require('fs');
+
+// Ensure the stream dir exists for live screenshot previews
+const streamDir = path.join(__dirname, '..', 'test-results', '_stream');
+if (!fs.existsSync(streamDir)) fs.mkdirSync(streamDir, { recursive: true });
+
+test.describe.configure({ mode: 'serial' });
 
 test.describe('Pomodoro Timer', () => {
   test('initial state shows 25:00 and session count 0', async ({ page }) => {
     await page.goto('/');
     await expect(page.locator('#timer-display')).toHaveText('25:00');
     await expect(page.locator('#session-count')).toHaveText('0');
+    await page.screenshot({ path: path.join(streamDir, `${Date.now()}_initial.png`), fullPage: false });
   });
 
   test('Start begins the countdown', async ({ page }) => {
@@ -17,6 +26,7 @@ test.describe('Pomodoro Timer', () => {
 
     const state = await page.evaluate(() => window.__pomodoroTest.getState());
     expect(state).toBe('running');
+    await page.screenshot({ path: path.join(streamDir, `${Date.now()}_start.png`), fullPage: false });
   });
 
   test('Pause freezes the countdown', async ({ page }) => {
@@ -34,6 +44,7 @@ test.describe('Pomodoro Timer', () => {
 
     const state = await page.evaluate(() => window.__pomodoroTest.getState());
     expect(state).toBe('paused');
+    await page.screenshot({ path: path.join(streamDir, `${Date.now()}_pause.png`), fullPage: false });
   });
 
   test('Reset returns to 25:00 and stopped state', async ({ page }) => {
@@ -46,6 +57,7 @@ test.describe('Pomodoro Timer', () => {
 
     const state = await page.evaluate(() => window.__pomodoroTest.getState());
     expect(state).toBe('stopped');
+    await page.screenshot({ path: path.join(streamDir, `${Date.now()}_reset.png`), fullPage: false });
   });
 
   test('Session counter increments after a completed cycle', async ({ page }) => {
@@ -59,5 +71,6 @@ test.describe('Pomodoro Timer', () => {
 
     await expect(page.locator('#session-count')).toHaveText('1');
     await expect(page.locator('#timer-display')).toHaveText('25:00');
+    await page.screenshot({ path: path.join(streamDir, `${Date.now()}_session.png`), fullPage: false });
   });
 });
